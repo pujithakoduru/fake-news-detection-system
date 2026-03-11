@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Fake News Detection</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background:#eef2f7;
+text-align:center;
+padding:40px;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:10px;
+width:60%;
+margin:auto;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+textarea{
+width:90%;
+height:150px;
+padding:10px;
+font-size:16px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+button{
+padding:12px 24px;
+font-size:18px;
+background:#2e86de;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin-top:20px;
+}
+
+button:hover{
+background:#1b4f72;
+}
+
+.result{
+margin-top:25px;
+font-size:26px;
+font-weight:bold;
+}
+
+.bar-container{
+width:90%;
+background:#ddd;
+border-radius:20px;
+margin:20px auto;
+}
+
+.bar{
+height:30px;
+border-radius:20px;
+text-align:center;
+color:white;
+line-height:30px;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>AI Fake News Detection System</h1>
+
+<p>Paste a news article below to analyze whether it is real or fake.</p>
+
+<form action="/predict" method="post">
+
+<textarea name="news" placeholder="Paste news text here..."></textarea>
+
+<br>
+
+<button type="submit">Analyze News</button>
+
+</form>
+
+{% if prediction_text %}
+
+<div class="result">
+Prediction: {{ prediction_text }}
+</div>
+
+<div class="bar-container">
+
+{% if prediction_text == "Real News" %}
+
+<div class="bar" style="width:{{ confidence }}%; background:#27ae60;">
+{{ confidence }}%
+</div>
+
+{% else %}
+
+<div class="bar" style="width:{{ confidence }}%; background:#e74c3c;">
+{{ confidence }}%
+</div>
+
+{% endif %}
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
