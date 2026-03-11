@@ -7,7 +7,7 @@ import nltk
 from flask import Flask, render_template, request
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from nltk.corpus import stopwords
-
+nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
 app = Flask(__name__)
