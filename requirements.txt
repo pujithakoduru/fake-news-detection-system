@@ -1,0 +1,8 @@
+flask
+numpy
+pandas
+scikit-learn
+tensorflow-cpu==2.13.0
+nltk
+matplotlib
+seaborn
