@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -26,11 +25,16 @@ box-shadow:0 4px 10px rgba(0,0,0,0.1);
 
 textarea{
 width:90%;
-height:150px;
+height:120px;
 padding:10px;
 font-size:16px;
 border-radius:6px;
 border:1px solid #ccc;
+resize:none;
+}
+
+input[type="file"]{
+margin-top:10px;
 }
 
 button{
@@ -70,7 +74,43 @@ line-height:30px;
 font-weight:bold;
 }
 
+.note{
+margin-top:10px;
+font-size:14px;
+color:#555;
+}
+
+.extracted{
+margin-top:20px;
+max-height:200px;
+overflow-y:auto;
+background:#f9f9f9;
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
+text-align:left;
+}
+
+.error{
+color:red;
+font-weight:bold;
+margin-top:15px;
+}
+
 </style>
+
+<script>
+function validateForm() {
+    let text = document.forms["newsForm"]["news"].value;
+    let file = document.forms["newsForm"]["file"].value;
+
+    if (text.trim() === "" && file === "") {
+        alert("Please enter text or upload a file!");
+        return false;
+    }
+    return true;
+}
+</script>
 
 </head>
 
@@ -80,17 +120,38 @@ font-weight:bold;
 
 <h1>AI Fake News Detection System</h1>
 
-<p>Paste a news article below to analyze whether it is real or fake.</p>
+<p>Analyze news using text, image, PDF, or document</p>
 
-<form action="/predict" method="post">
+<form name="newsForm" action="/predict" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
 
+<!-- TEXT INPUT -->
 <textarea name="news" placeholder="Paste news text here..."></textarea>
 
-<br>
+<p class="note">OR upload a file (Image / PDF / DOCX)</p>
+
+<!-- SINGLE FILE INPUT -->
+<input type="file" name="file" accept="image/*,.pdf,.doc,.docx">
+
+<p style="font-size:13px;color:gray;">
+Supported formats: JPG, PNG, PDF, DOC, DOCX
+</p>
 
 <button type="submit">Analyze News</button>
 
 </form>
+
+{% if error %}
+<div class="error">
+{{ error }}
+</div>
+{% endif %}
+
+{% if extracted_text %}
+<div class="extracted">
+<h3>Extracted Text:</h3>
+<p>{{ extracted_text }}</p>
+</div>
+{% endif %}
 
 {% if prediction_text %}
 
@@ -101,17 +162,13 @@ Prediction: {{ prediction_text }}
 <div class="bar-container">
 
 {% if prediction_text == "Real News" %}
-
 <div class="bar" style="width:{{ confidence }}%; background:#27ae60;">
 {{ confidence }}%
 </div>
-
 {% else %}
-
 <div class="bar" style="width:{{ confidence }}%; background:#e74c3c;">
 {{ confidence }}%
 </div>
-
 {% endif %}
 
 </div>
@@ -121,14 +178,4 @@ Prediction: {{ prediction_text }}
 </div>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-

@@ -1,108 +1,139 @@
-# Fake News Detection System
+#  AI Fake News Detection System
 
-## Overview
-
-This project is an AI-powered Fake News Detection System built using  Natural Language Processing (NLP) and Deep Learning (LSTM).
-
-The system analyzes news text and predicts whether the news is **Fake or Real**.
-
-A Flask web application allows users to enter news content and receive predictions with a confidence score.
+An intelligent web-based application that detects whether a news article is **Real or Fake** using Deep Learning and Natural Language Processing (NLP).
 
 ---
 
-## Technologies Used
+## 📌 Features
+
+* 📝 Detect fake news from **text input**
+* 🖼️ Detect fake news from **images (OCR)**
+* 📄 Analyze **PDF documents**
+* 📃 Analyze **Word documents (.doc/.docx)**
+* 📊 Displays **prediction confidence**
+* 🌐 Interactive **Flask web interface**
+
+---
+
+## 🧠 Technologies Used
 
 * Python
 * TensorFlow / Keras
-* Natural Language Processing
-* Flask
-* Scikit-Learn
-* Matplotlib
-* Seaborn
+* Natural Language Processing (NLTK)
+* Flask (Web Framework)
+* Scikit-learn
+* Matplotlib & Seaborn
+* Tesseract OCR
 
 ---
 
-## Features
+## 📂 Project Structure
 
-* Deep Learning model using **LSTM**
-* Text preprocessing using **NLP**
-* Tokenization and sequence modeling
-* Confusion matrix visualization
-* Training accuracy and loss graphs
-* Web interface for real-time prediction
-* Probability confidence score
+fake_news_project/
 
----
-
-## Model Performance
-
-Accuracy: **~98%**
-
-Evaluation metrics include:
-
-* Precision
-* Recall
-* F1 Score
-* Confusion Matrix
-
----
-
-## Project Structure
-
-```
-fake_news_project
-│
-├── dataset
-├── model
-├── templates
 ├── app.py
 ├── train_model.py
 ├── prepare_dataset.py
 ├── requirements.txt
-└── README.md
-```
+
+├── model/
+│   ├── fake_news_model.h5
+│   ├── tokenizer.pkl
+
+├── templates/
+│   └── index.html
+
+├── dataset/
+│   └── README.md
+
+├── uploads/
+
+└── .gitignore
 
 ---
 
-## How to Run the Project
+## ⚙️ Installation
 
-Clone the repository:
+### 1. Clone the repository
 
-```
-git clone https://github.com/pujithakoduru/fake-news-detection-system
-```
+git clone https://github.com/pujithakoduru/fake-news-detection-system.git
+cd fake-news-detection-system
 
-Install dependencies:
+---
 
-```
+### 2. Create virtual environment
+
+python -m venv venv
+venv\Scripts\activate
+
+---
+
+### 3. Install dependencies
+
 pip install -r requirements.txt
-```
 
-Train the model:
+---
 
-```
-python train_model.py
-```
+### 4. Install Tesseract OCR (for image processing)
 
-Run the web application:
+Download from:
+https://github.com/tesseract-ocr/tesseract
 
-```
+(Optional) Add path in code:
+
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+---
+
+## ▶️ Run the Application
+
 python app.py
-```
 
 Open in browser:
-
-```
 http://127.0.0.1:5000
-```
 
 ---
 
-## Future Improvements
+## 🧪 Model Training
 
-* Use Transformer models like **BERT**
-* Integrate fact-checking APIs
-* Deploy using cloud services
+python prepare_dataset.py
+python train_model.py
 
 ---
 
+## 📊 Model Performance
+
+* Accuracy: ~98%
+* Uses Bidirectional LSTM
+* Evaluated using confusion matrix and classification report
+
+---
+
+## ⚠️ Limitations
+
+* Works best with long news content
+* May misclassify short inputs
+* Dataset mainly contains English news
+
+---
+
+## 🚀 Future Improvements
+
+* Use BERT model for higher accuracy
+* Real-time news verification
+* Highlight fake parts in text
+* Mobile-friendly UI
+
+---
+
+
+## 👩‍💻 Author
+
+Pujitha Koduru
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a star ⭐ on GitHub!
+tesseract --version
